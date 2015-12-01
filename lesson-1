@@ -1,1 +1,1537 @@
-.
+%Because the ones who are crazy enough to think they can change the world, are the ones who do.
+
+
+
+%Document has been shared with
+  %Calvin Lin
+  %SLTX only lets you share with one person; use OL for multiple people
+
+%To do
+  %Add trig graphs
+  %Fix colors on graphs, do capital letters
+  %General comment: Graphing sucks
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Lesson 1\\Sets and Functions}
+\author{Trevor Birenbaum}
+\date{Date of Lesson}
+
+%\usepackage{WeThePeople}
+\usepackage{amsmath, amssymb}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{verbatim,comment}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{pgfplots}
+\usetikzlibrary{positioning,calc,quotes,angles}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{soldot/.style={color=black,only marks,mark=*}, holdot/.style={color=black,fill=white,only marks,mark=*},compat=1.10}
+\pgfplotsset{every non boxed x axis/.append style={x axis line style=<->,>=latex},every non boxed y axis/.append style={y axis line style=<->,>=latex}}
+\usepgfplotslibrary{groupplots}
+
+\def\xstrut{\rule[-1.5ex]{0pt}{3ex}}
+
+\setlength{\parindent}{2em}
+
+\newcounter{chapternum}
+\newcounter{tablenum}[chapternum]
+\newcounter{figurenum}[chapternum]
+\newcounter{examplenum}[chapternum]
+
+\newcommand{\tablelabel}{\stepcounter{tablenum} \framebox{\hspace{0.25em}Table \(\thechapternum.\thetablenum\)\hspace{0.25em}}}
+\newcommand{\figurelabel}{\stepcounter{figurenum} \framebox{\hspace{0.25em}Figure \(\thechapternum.\thefigurenum\)\hspace{0.25em}}}
+
+\newcommand{\example}{\stepcounter{examplenum} \noindent{\large{\color{Red}{Example \theexamplenum: }}}\addcontentsline{toc}{subsubsection}{Example \theexamplenum}}
+\newcommand{\solution}{\noindent{\large{\color{Red}{Solution}}}}
+
+\renewcommand\thesection{\thechapternum.\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+\setlength{\cftsecnumwidth}{2em}
+\cftsetindents{subsection}{2em}{3.25em}
+\cftsetindents{subsubsection}{5.25em}{4em}
+
+\DeclareMathOperator{\Forall}{\forall}
+\DeclareMathOperator{\sgn}{sgn}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Name of website}
+\chead{Calculus}
+\rhead{Lesson 1}
+\rfoot{Page \thepage}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+
+\begin{document}
+\stepcounter{chapternum}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\thispagestyle{empty}
+\hypersetup{linkcolor=black}
+\tableofcontents
+\hypersetup{linkcolor=blue}
+
+\newpage
+\setcounter{page}{1}
+
+\section{Sets}
+\subsection{Introduction to Sets}
+
+A \textbf{set} is an unordered collection of distinct \textbf{elements}. This means that a set has different entities that make it up, and the order these entities are written in does not change the properties of the set. In this course, we will only be looking at sets containing only numbers, though sets can also contain other types of elements (like letters, words, breakfast foods, etc.) or even other sets.
+
+Sets are demarcated with the curly braces \{ and \}. The
+elements of the set are written inside the braces. The set containing the numbers ``\(2\)," ``\(3\)," ``\(5\)", and ``\(7\)" is \(\{2,3,5,7\},\) though writing \(\{3,7,5,2\}\) or \(\{5,3,2,7\}\) or any of the other \(21\) possibilities is also acceptable.
+
+We can use special characters to denote if a number \(n\) is in a set \(S.\) If \(S\) contains \(n,\) then we can write \(n\in S\); otherwise, we write \(n\not\in S.\) A set that contains no elements is known as the \textbf{empty set}, denoted \(\varnothing.\)
+
+We can construct sets that follow certain rules with \(n|C(n)\) notation. \(C(n)\) is the condition a number \(n\) has to follow to be in set \(S.\) For the above set, possible rules could be \(S=\{n|\text{primes less than }10\}\) or \(S=\{x|\text{solutions to the equation }x^4-17x^3+101x^2-247x+210=0\}\) or many other things. 
+
+If we describe all \(x\) that satisfy a given condition, then we use the character \(\Forall,\) meaning ``for all". To demonstrate, we can say \(x^2>0\Forall x\in\{-1,3,28\},\) but \(\{x|x^2<0\}=\varnothing.\)
+
+\subsection{Union and Intersection}
+
+The \textbf{union} of two sets \(A\) and \(B\) is the set of elements that are in \(A,\) in \(B,\) or in both \(A\) and \(B,\) but not any other elements. If the union of \(A\) and \(B\) is \(C,\) then we can write \(A\cup B=C.\)
+
+The \textbf{intersection} of two sets \(A\) and \(B\) is the set of elements that are in both \(A\) and \(B.\) If an element fails to appear in at least one of the two sets, then it does not appear in the intersection. If the intersection of \(A\) and \(B\) is \(C,\) then we can write \(A\cap B=C.\)\\
+
+\example Give the set equivalent to each of the following.
+\begin{enumerate}[label=(\alph*)]
+\item \(\{-1,0,6\}\cup\{2,3,6\}\)
+\item \(\{x|\text{Positive factors of }30\}\cap\{x|\text{Multiples of }5\}\)
+\item \(\{1,2,3,4\}\cap(\{0,2,4,6\}\cup\{-4,-1,2,5\}\)
+\end{enumerate}
+\solution
+\begin{enumerate}[label=(\alph*)]
+\item \(\{-1,0,2,3,6\}\)
+\item \(\{1,2,3,5,6,10,15,30\}\cap\{\ldots,-5,0,5,10,\ldots\}=\{5,10,15\}\)
+\item \(\{1,2,3,4\}\cap\{-4,-1,0,2,4,5,6\}=\{2,4\}\)
+\end{enumerate}
+\vspace{1em}
+
+\subsection{Special Sets}
+
+There are several sets that we will encounter very often throughout this course, which are described here. There are many other special sets of numbers, but they are not important to this class and are therefore not listed.
+
+\begin{itemize}
+\item \(\mathbb{C}\) represents the \textbf{complex numbers}. These are numbers that can be written in the form \(a+bi,\) where \(a\) and \(b\) are real constants and \(i=\sqrt{-1}.\) Even if \(a=0\) or \(b=0\) (or both), any number we will encounter in this course is complex.
+\item \(\mathbb{R}\) represents the \textbf{real numbers}. These are complex numbers that have \(b=0.\) \(12\) and \(-\pi^3\) are real numbers, but \(5-3i\) is not a real number.
+\item \(\mathbb{Z}\) represents the \textbf{integers}. These are numbers that, when expressed in decimal notation, have nothing after the decimal point (after being simplified fully). \(2\) is an integer, but \(\frac{7}{4}=1.75\) and \(\sqrt{3}=1.732\ldots\) are not integers.
+\item \(\mathbb{N}\) represents the \textbf{natural numbers}. These are the positive integers \((\mathbb{Z}^+)\). Examples include \(7\) and \(12,802.\) Note that \(0\) is not a natural number; while \(0\) is non-negative, it is also not positive.
+\end{itemize}
+
+Some other sets you may encounter are \(\mathbb{Q}\) (\textbf{rationals}, which can be written in the form \(\frac{a}{b}\) for nonzero \(b\)), \(\mathbb{U}\) (\textbf{whole numbers}, which are non-negative integers), and \(\mathbb{I}\) (\textbf{imaginary numbers}, which are equal to \(bi\) for some real nonzero \(b\)).\\
+
+\noindent \textit{Note: This text gives a cyclical definition of real and complex numbers because the formal definitions of the real and complex numbers are beyond the scope of this book.}
+
+\subsection{Interval Notation}
+
+\indent An \textbf{interval} is a subsection of the real line containing all real numbers strictly between the \textbf{endpoints} (and possibly the endpoints themselves). An interval is continuous; for example, the set of positive reals is continuous and is thus an interval, but the set of positive integers is non-continuous and is not an interval.
+
+If the distance between the two endpoints of an interval is finite, then the interval is a \textbf{finite interval}. If the distance between the two endpoints is infinite, then the interval is an \textbf{infinite interval}.
+
+Depending on if a finite interval contains its endpoints, an interval can be \textbf{open} (it contains neither of its endpoints), \textbf{half-open} (it contains exactly one of its enpoints), or \textbf{closed} (ot contains both of its enpoints). An infinite interval is considered closed if it contains its finite endpoints, and open otherwise. By convention, the set of reals is considered both open and closed. The following table describes how to denote these types of sets in \textbf{interval notation}.\\
+
+\noindent \tablelabel 
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Notation} & \textbf{Function} & \textbf{Description} \\
+\hline
+\((a,b)\) & \(\{x|a<x<b\}\) & Open \\
+\([a,b)\) & \(\{x|a\leq x<b\}\) & Half-open \\
+\((a,b]\) & \(\{x|a<x\leq b\}\) & Half-open \\
+\([a,b]\) & \(\{x|a\leq x\leq b\}\) & Closed \\
+\((a,\infty)\) & \(\{x|x>a\}\) & Open \\
+\([a,\infty)\) & \(\{x|x\geq a\}\) & Closed \\
+\((-\infty,b)\) & \(\{x|x<b\}\) & Open \\
+\((-\infty,b]\) & \(\{x|x\leq b\}\) & Closed \\
+\((-\infty,\infty)\) & \(x\in\mathbb{R}\) & Both \\ \hline
+\end{tabular}
+\end{center}
+\example Solve the following inequalities and write your answer in interval notation.
+\begin{enumerate}[label=(\alph*)]
+\item \(4x+2<-x-3\)
+\item \(\frac{3x+5}{8}+2\geq4\)
+\item \(x^2-6x\leq16\)
+\end{enumerate}
+\solution
+\begin{enumerate}[label=(\alph*)]
+\item
+\(
+\begin{aligned}[t]
+4x+2&<-x-3 && && \\
+5x+2&<-3 && && {\scriptsize\color{blue}\text{Add }\scriptstyle{x}} \\
+5x&<-5 && && {\scriptsize\color{blue}\text{Subtract }\scriptstyle{2}} \\
+x&<-1 && &&  {\scriptsize\color{blue}\text{Divide by }\scriptstyle{5}} \\
+x&\in(-\infty,-1) && \hspace{1em} &&  {\scriptsize\color{blue}\text{Interval notation}}
+\end{aligned}
+\)
+\item
+\(
+\begin{aligned}[t]
+\tfrac{3x+5}{8}+2&\geq4 && && \\
+\tfrac{3x+5}{8}&\geq2 && && {\scriptsize\color{blue}\text{Subtract }\scriptstyle{2}} \\
+3x+5&\geq16 && && {\scriptsize\color{blue}\text{Multiply by }\scriptstyle{8}} \\
+3x&\geq11 && && {\scriptsize\color{blue}\text{Subtract }\scriptstyle{5}} \\
+x&\geq\tfrac{11}{3} && && {\scriptsize\color{blue}\text{Divide by }\scriptstyle{3}} \\
+x&\in[\tfrac{11}{3},\infty] && \hspace{1em} && {\scriptsize\color{blue}\text{Interval notation }}
+\end{aligned}
+\)
+\item
+\(
+\begin{aligned}[t]
+x^2-6x&\leq16 && && \\
+x^2-6x-16&\leq0 && && {\scriptsize\color{blue}\text{Subtract }\scriptstyle{16}} \\
+(x+2)(x-8)&\leq0 && && {\scriptsize\color{blue}\text{Factor}} \\
+x&\in[-2,8] && \hspace{1em} && {\scriptsize\color{blue}\text{Interval notation}}
+\end{aligned}
+\)
+\end{enumerate}
+
+\section{Introduction to Functions}
+\subsection{Properties of Functions}
+
+A \textbf{relation} is an expression used to express a relationship between two variables. As one of the values of the variables changes, the value of the other variable should change accordingly. A function describes the relationship between two variables \(x\) and \(y\) by writing \(y\) in terms of \(x.\) We write \(y=f(x)\) and say ``\(y\) equals \(f\) of \(x\)" when we want to say that \(y\) depends on the value of \(x\) according to the function \(f.\)
+
+Because we have made \(y\) change based on our different values of \(x,\) we call \(x\) the \textbf{independent variable} and \(y\) the \textbf{dependent variable}. You may have come across these terms in a science class.
+
+A \textbf{function} is a relation between \(x\) and \(y\) expressed as \(y=f(x)\) that produces a unique value of \(y\) for a given value of \(x.\) This means that the function passes the \textbf{Vertical Line Test}. This test states that if a vertical line passes through the graph of a relation more than once, then the relation is not a function. For example, a circle centered at the origin with radius \(1\) is not a function because the vertical line \(x=0\) passes through it at two points - \((0,-1)\) and \((0,1).\)\\
+
+\example Write a function to represent the following operations.
+\begin{enumerate}
+\item A number \(x\) multiplied by \(2\) and added to \(1\)
+\item The area of a circle is \(\pi\) times the radius \((r)\) squared.
+\item A number \(n\) multiplied by itself four times, then divided by
+\(3\), then reduced by the number times \(2\)
+\end{enumerate}
+\solution
+\begin{enumerate}
+\item \(A(x)=2x+1\)
+\item \(B(r)=\pi r^2\)
+\item \(C(n)=\frac{n^4}{3}-2n\)
+\end{enumerate}
+\vspace{1em}
+
+Note that we don't only have to use the letter \(f\) to represent functions. As you see, we can use other letters, and in other areas of mathematics, some of the symbols used to represent functions aren't even letters at all!
+
+\subsection{Domain and Range}
+
+Every function has a specific set of values of \(x\) that produce defined values of \(y.\) These values of \(x\) are referred to as the \textbf{domain} of the function, and the values of \(y\) they create are the \textbf{range}. It is much easier to find the domain of functions than it is to find the range. When written, domain and range are expressed in interval notation.
+
+When we see a function, we should always assume it has the largest possible domain unless restrictions on the domain are explicitly given; for example, we should only assume \(f(x)=x^2\) has a domain of \([2,4)\) if we are told that \(f(x)=x^2,-2\leq x<4.\) This largest possible domain is called the \textbf{natural domain} of the function.
+
+The domain of a function \(f(x)\) can be notated \(\mathfrak{D}(f).\) Similarly, the range of \(f\) is \(\mathfrak{R}.\)\\
+
+\noindent There are several important rules to follow when taking the domain of a function.
+\begin{itemize}
+\item Never divide a number by \(0.\)
+\item Never take the square root of a negative number.
+\item Never take a logarithm of a non-positive number.
+\end{itemize}
+\noindent \textit{Note: If the word ``logarithm" in the third rule is unfamiliar to you, don't worry; it will be explained soon.}
+
+\subsection{A Preview of Curve Sketching}
+
+We can plug in specific values of \(x\) to find values of \(y.\) To do this, replace all of the \(x\)'s in the expression with the value of \(x\) you are using and simplify. For example, if \(f(x)=x^2+6\) and we wan to find \(f(4),\) we say \(f(4)=4^2+6=22.\) When written together, these \(x\) and \(y\) pairs are called \textbf{ordered pairs} and written in the form \((x,f(x)).\) A graph of a function is made up by plotting ordered pairs.
+
+Two other ways to represent a function are numerically and graphically. We can compile a list of ordered pairs in a graph and then connect the dots we put on the graph. The closer we put the dots together, the more accurate our graph will be to the real thing. Let's try this out with the graph of \(y=x^2.\)\\
+
+\noindent \tablelabel
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\(x\) & \(f(x)\) \\ \hline
+\(-2\) & \(4\) \\
+\(-1\) & \(1\) \\
+\(0\) & \(0\) \\
+\(0.25\) & \(0.0625\) \\
+\(0.5\) & \(0.25\) \\
+\(1\) & \(1\) \\
+\(1.5\) & \(2.25\) \\
+\(2\) & \(4\) \\ \hline
+\end{tabular}
+\end{center}
+Let's compare the graph created by plotting the above points to the actual graph of \(y=x^2.\)\\
+
+\noindent \figurelabel
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%Line segments
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-2.5,xmax=2.5,xtick={-2,-1,1,2},
+ymin=-1.5,ymax=4.5,ytick={-1,1,2,3,4},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=-2:-1,<-,>=latex,samples=2] {-3*x-2};
+\addplot[domain=-1:0,samples=2] {-1*x};
+\addplot[domain=0:2,->,>=latex,samples=2] {x^2};
+\end{axis}
+
+%y=x^2
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-2.5,xmax=2.5,xtick={-2,-1,1,2},
+ymin=-1.5,ymax=4.5,ytick={-1,1,2,3,4},
+xlabel=\(x\),ylabel=\(y\),
+samples=200]
+\addplot[domain=-2:2,<->,>=latex] {x^2};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+Note how much more similar the right hand side of the first graph is to the second graph than the left hand side.
+
+\section{Common functions}
+
+We will now examine the graphs of many of the common functions we will use throughout this course. For simplicity, we will assume \(y=f(x)\) for this entire section.
+
+\subsection{Power functions}
+
+The simplest function is a \textbf{constant function}. This is a function of the form \(f(x)=b\) for some constant \(b.\) Another simple function is the \textbf{identity function} \(f(x)=x,\) which returns as an output the value that was inputted. Multiplying the identity function by a nonzero constant \(m\) makes \(y\) and \(x\) \textbf{directly proportional}; i.e. \(\frac{y}{x}=m.\) It is also worth noting that if \(xy=k,\) then \(x\) and \(y\) are \textbf{inversely proportional}. Here are the graphs of a constant function and \(y=mx\) for several values of \(m.\)\\
+
+\noindent \figurelabel
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+\begin{axis}[grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-3.5,xmax=3.5,xtick={-3,-2,-1,1,2,3},
+ymin=-3.5,ymax=3.5,ytick={-3,-2,-1,1,2,3},
+xlabel=\(x\),ylabel=\(y\),
+samples=2,
+legend style={at={(axis cs:4,2)},anchor=north west,font=\small},legend cell align=left,legend image post style=-]
+
+\addplot[domain=-1.5:1.5,<->,>=latex,Green] {-2*x}; \addlegendentry{\text{ }\(y=-2x\)}
+\addplot[domain=-3:3,<->,>=latex,Orange] {-1*x}; \addlegendentry{\text{ }\(y=-x\)}
+\addplot[domain=-3:3,<->,>=latex,Red] {-1/2*x}; \addlegendentry{\text{ }\(y=-\frac{1}{2}x\)}
+\addplot[domain=-3:3,<->,>=latex,Magenta] {1/2*x}; \addlegendentry{\text{ }\(y=\frac{1}{2}x\)}
+\addplot[domain=-3:3,<->,>=latex,Purple] {x}; \addlegendentry{\text{ }\(y=x\)}
+\addplot[domain=-1.5:1.5,<->,>=latex,Blue] {2*x}; \addlegendentry{\text{ }\(y=2x\)}
+\addplot[domain=-3:3,<->,>=latex] {2.5}; \addlegendentry{\text{ }\(y=\frac{5}{2}\)}
+
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+When a constant and a scaled identity function are added together, we get the general equation of a \textbf{linear function}: \(y=mx+b.\) \(m\) is the slope of the function, and \(b\) is its \textbf{y-intercept} (where it crosses the \(y\)-axis). Note that the function crosses the \(x\)-axis at its \textbf{x-intercept} of \(-\frac{b}{m}.\) The graphs of two lines are shown.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+\begin{axis}[grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-2.5,xmax=3.5,xtick={-2,-1,1,2,3},
+ymin=-2.5,ymax=3.5,ytick={-2,-1,1,2,3},
+xlabel=\(x\),ylabel=\(y\),
+samples=2,
+legend style={at={(axis cs:4,2)},anchor=north west,font=\small},legend cell align=left,legend image post style=-]
+
+\addplot[domain=-2:2,<->,>=latex,Red] {5/4*x+1/2}; \addlegendentry{\text{ }\(y=\frac{5}{4}x+\frac{1}{2}\)}
+\addplot[domain=-2:3,<->,>=latex,Blue] {-1/2*x+2}; \addlegendentry{\text{ }\(y=-\frac{1}{2}x+2\)}
+
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+The power of \(x\) in a function doesn't always have to be \(1.\) A function of the form \(f(x)=x^p\) for some constant \(p\) is known as a \textbf{power function}. We will now investigate the graphs of power functions for several important values of \(p.\)
+
+{\large
+\begin{itemize}
+\item \hspace{0.5em}\(p\) is a positive integer
+\end{itemize}
+}
+
+\noindent You have already seen the graph of \(y=x^1=x.\) Here are the graphs for \(p\in\{2,3,4,5\}.\)\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=x^2
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=173]
+\addplot[domain=-1.732:1.732,<->,>=latex] {x^2};
+\node[label={270:{\(y=x^2\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+%y=x^3
+\begin{axis}[name=plot2,at={($(plot1.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-2,ymax=2,ytick={-1,1},
+xlabel=\(x\),ylabel=\(y\),
+samples=126]
+\addplot[domain=-1.260:1.260,<->,>=latex] {x^3};
+\node[label={270:{\(y=x^3\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+%y=x^4
+\begin{axis}[name=plot3,at={($(plot2.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=132]
+\addplot[domain=-1.316:1.316,<->,>=latex] {x^4};
+\node[label={270:{\(y=x^4\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+%y=x^5
+\begin{axis}[name=4,at={($(plot3.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-2,ymax=2,ytick={-1,1},
+xlabel=\(x\),ylabel=\(y\),
+samples=115]
+\addplot[domain=-1.149:1.149,<->,>=latex] {x^5};
+\node[label={270:{\(y=x^5\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\vspace{-1em}Notice here how much steeper the graphs get as \(p\) grows larger. Also, the graphs of \(x^{2k}\) tend towards \(\infty\) as the \(x\) coordinate goes further away from the \(y\)-axis, while the graphs of \(x^{2k+1}\) tend towards \(\infty\) as the \(x\) coordinate moves further from the \(y\)-axis in a positive direction and towards \(-\infty\) as the \(x\) coordinate moves further from the \(y\)-axis in a negative direction. These are trends that will continue for integer \(p>5.\)\\
+
+Different things happen, however, when \(p\) is a negative integer. Since \(x^{-k}=\frac{1}{x^k},\) the expression will not be defined when \(x=0.\) The line \(x=0\) is called an ``asymptote," but we will learn about these later on.
+
+{\large
+\begin{itemize}
+\item \hspace{0.5em}\(p\) is a negative integer
+\end{itemize}
+}
+
+\noindent Here are the graphs of \(x^{-p}\) for \(p\in\{1,2,3,4\}.\) Note that the functions are all undefined at \(x=0\) and \(|x^{p}|\) decreases as \(|x|\) increases.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=x^-1
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+x=0.4cm,y=0.4cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},xticklabels={\empty},
+ymin=-4,ymax=4,ytick={-3,-2,-1,1,2,3},yticklabels={\empty},
+extra x tick style={ticklabel style={fill=white,font=\scriptsize},xticklabel={1}},extra x ticks={1},
+extra y tick style={ticklabel style={fill=white,font=\scriptsize},yticklabel={1}},extra y ticks={1},
+xlabel=\(x\),ylabel=\(y\),
+samples=188]
+\addplot[domain=-4:-0.250,<->,>=latex] {x^-1};
+\addplot[domain=0.250:4,<->,>=latex] {x^-1};
+\node[label={270:{\(y=x^{-1}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=x^-2
+\begin{axis}[name=plot2,at={($(plot1.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+x=0.4cm,y=0.4cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},xticklabels={\empty},
+ymin=-4,ymax=4,ytick={-3,-2,-1,1,2,3},yticklabels={\empty},
+extra x tick style={ticklabel style={fill=white,font=\scriptsize},xticklabel={1}},extra x ticks={1},
+extra y tick style={ticklabel style={fill=white,font=\scriptsize},yticklabel={1}},extra y ticks={1},
+xlabel=\(x\),ylabel=\(y\),
+samples=175]
+\addplot[domain=-4:-0.500,<->,>=latex] {x^-2};
+\addplot[domain=0.500:4,<->,>=latex] {x^-2};
+\node[label={270:{\(y=x^{-2}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=x^-3
+\begin{axis}[name=plot3,at={($(plot2.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+x=0.4cm,y=0.4cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},xticklabels={\empty},
+ymin=-4,ymax=4,ytick={-3,-2,-1,1,2,3},yticklabels={\empty},
+extra x tick style={ticklabel style={fill=white,font=\scriptsize},xticklabel={1}},extra x ticks={1},
+extra y tick style={ticklabel style={fill=white,font=\scriptsize},yticklabel={1}},extra y ticks={1},
+xlabel=\(x\),ylabel=\(y\),
+samples=169]
+\addplot[domain=-4:-0.630,<->,>=latex] {x^-3};
+\addplot[domain=0.630:4,<->,>=latex] {x^-3};
+\node[label={270:{\(y=x^{-3}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=x^-4
+\begin{axis}[name=plot4,at={($(plot3.east)+(2em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+x=0.4cm,y=0.4cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},xticklabels={\empty},
+ymin=-4,ymax=4,ytick={-3,-2,-1,1,2,3},yticklabels={\empty},
+extra x tick style={ticklabel style={fill=white,font=\scriptsize},xticklabel={1}},extra x ticks={1},
+extra y tick style={ticklabel style={fill=white,font=\scriptsize},yticklabel={1}},extra y ticks={1},
+xlabel=\(x\),ylabel=\(y\),
+samples=165]
+\addplot[domain=-4:-0.707,<->,>=latex] {x^-4};
+\addplot[domain=0.707:4,<->,>=latex] {x^-4};
+\node[label={270:{\(y=x^{-4}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+You may notice how the shape of these graphs depends on if \(p\) is even or odd. This makes sense, as all of these functions are \(1\) divided by the \(x^p\) graphs we saw earlier. \(1\) is a positive number. Thus, \(1\) divided by a negative number is a negative number, and \(1\) divided by a positive number is also positive. Looking back at the \(x^p\) graphs, we see that only functions of the form \(y=x^{2k+1}\) have \(y\)-coordinates in the negative numbers. This means that \(y=\frac{1}{x^{2k+1}}\) also has \(y\)-coordinates in the negative numbers. Additionally, as \(p\) increases, the curvature of the graph of \(y=x^{-p}\) becomes more pronounced. 
+
+{\large
+\begin{itemize}
+\item \hspace{0.5em}\(p\) is a positive fraction
+\end{itemize}
+}
+
+When considering \(x^p\) with positive non-integer \(p,\) we have to ask the following question: is \(p\) greater or less than \(1?\)
+
+\begin{itemize}
+\item \hspace{0.5em}\(p>1\)
+\end{itemize}
+
+The graph will have a very similar shape to that of graphs of other \(y=x^p\) with integer \(p\geq2,\) but this is only guaranteed in the first quadrant. The domain may not allow for negative values of \(x.\) Let's write \(x^p=x^\frac{a}{b}\) for positive integer \(a\) and \(b\) that share no factors other than \(1\) (they are \textbf{coprime}).
+
+Remember that \(x^\frac{a}{b}\) can be written as \(\sqrt[b]{x^a}\). If \(b\) is even, then \(x^a\) must be positive, or the expression would not be defined. Thus, if \(b\) is even, then the domain of \(y=x^\frac{a}{b}\) is \([0,\infty).\) However, if \(b\) is odd, then the domain of \(x^\frac{a}{b}\) is \(\mathbb{R}.\)\\
+
+\noindent Here are the graphs of two power functions with non-integer \(p>1.\)\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=x^(3/2)
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=100]
+\addplot[domain=0:2,->,>=latex] {x^(3/2)};
+\node[label={270:{\(y=x^\frac{3}{2}\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+%y=x^(7/3)
+\begin{axis}[name=plot1,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-2,xmax=2,xtick={-1,1},
+ymin=-2,ymax=2,ytick={-1,1},
+xlabel=\(x\),ylabel=\(y\),
+samples=135]
+\addplot[domain=-1.346:1.346,<->,>=latex] {x/abs(x)*(abs(x))^(7/3)};
+\node[label={270:{\(y=x^\frac{7}{3}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\begin{itemize}
+\item \hspace{0.5em}\(p<1\)
+\end{itemize}
+
+Like we did with the case where \(p>1,\) let's write \(x^p=x^\frac{a}{b}.\) We have the same domain issue: if \(b\) is even, then the domain of \(x^\frac{a}{b}\) is \([0,\infty)\), and if \(b\) is odd, then the domain of \(x^\frac{a}{b}\) is \(\mathbb{R}.\) The difference between the case where \(p<1\) and the case where \(p>1\) is that the graphs of the functions with \(p<1\) look like the graphs of \(p<1\) turned \(90^\circ\) to the right and then flipped over the \(x\)-axis. This is equivalent to a rotation over the line \(y=x.\) However, it is not a rotation of the \textit{whole} function over \(y=x.\) Notice that the graph of \(y=\sqrt{x}\) only lies in the first quadrant, not the fourth as well. This is because \(\sqrt{x}\) takes the principal root of \(x.\) While \(4^2=(-4)^2=16,\) \(4\) is the principal square root of \(16.\)
+
+It is important to know that \(y=\sqrt{x}\) is known as the \textbf{square root function} and that \(y=\sqrt[3]{x}\) is known as the \textbf{cube root function}. Here are their graphs.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=sqrt(x)
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-1,xmax=5,xtick={1,2,3,4},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=250]
+\addplot[domain=0:5,->,>=latex] {x^(1/2)};
+\node[label={270:{\(y=\sqrt{x}\)}},inner sep=4pt] at (axis cs:2,-1) {};
+\end{axis}
+
+%y=cbrt(x)
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-3,xmax=3,xtick={-2,-1,1,2},
+ymin=-2,ymax=2,ytick={-1,1},
+xlabel=\(x\),ylabel=\(y\),
+samples=300]
+\addplot[domain=-3:3,<->,>=latex] {x/abs(x)*(abs(x))^(1/3)};
+\node[label={270:{\(y=\sqrt[3]{x}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\subsection{Polynomials}
+
+A \textbf{polynomial} is a summation of power functions multiplied by constants under the condition that the power to which \(x\) is raised in each term is a non-negative integer. For example, \(f(x)=x^2+6x+10\) is a polynomial, but \(g(x)=2x^2+9-\frac{3}{x^4}\) and \(h(x)=9\pi\sqrt{x}\) are not. The following gives the general form for a polynomial.
+\[f(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_1x+a_0\]
+\hspace{2em} The numbers \(\{a_0,a_1,\ldots,a_n\}\) are referred to as \textbf{coefficients}. These coefficients can be equal to any real number, including \(0.\) A polynomial does not necessarily have a nonzero term for every \(x^k\) for \(k\) an integer in \([0,n].\) The exponent of the highest power of \(x\) that has a nonzero coefficient (in our general form, \(n\)) is known as the \textbf{degree} of the polynomial. For example, the degree of \(f(x)=0x^4+2x^3-x^2+6\) is \(3.\)
+
+The degree of a constant function \(y=c\) is \(0,\) except for \(y=0,\) which has an undefined degree. The degree of a linear function \(y=mx+b\) with \(m\neq0\) is \(1.\) When the degree of a polynomial is \(2,\) the polynomial is known as a \textbf{quadratic function} and is written in the form \(y=ax^2+bx+c.\) When the degree is \(3,\) the polynomial is called a \textbf{cubic function} and is written in the form \(y=ax^3+bx^2+cx+d.\) Here are two graphs of polynomials.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=-x^2+x+1
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.6cm,y=0.6cm,clip=false,
+xmin=-2,xmax=4,xtick={2},
+ymin=-6,ymax=2,ytick={-4,-2},
+xlabel=\(x\),ylabel=\(y\),
+samples=260]
+\addplot[domain=-2:3.192,<->,>=latex] {-1*x^2+x+1};
+\node[label={270:{\(y=-x^2+x+1\)}},inner sep=4pt] at (axis cs:1,-6) {};
+\end{axis}
+
+%y=x^3-3x^2+2x-4
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.6cm,y=0.6cm,clip=false,
+xmin=-2,xmax=4,xtick={2},
+ymin=-6,ymax=2,ytick={-4,-2},
+xlabel=\(x\),ylabel=\(y\),
+samples=176]
+\addplot[domain=-0.521:3,<->,>=latex] {x^3-3*x^2+2*x-4};
+\node[label={270:{\(y=x^3-3x^2+2x-4\)}},inner sep=4pt] at (axis cs:1,-6) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+The domain of all polynomials is \(\mathbb{R}.\)
+
+\subsection{Rational Functions}
+
+A \textbf{rational function} is the division of one polynomial by another. We can say \(f(x)=\frac{a(x)}{b(x)}.\) The domain of a rational function is the set of all real \(x\) except those such that \(b(x)=0.\) The graphs of rational functions often have asymptotes, which will be discussed in the next chapter. Here are the graphs of several rational functions. Note that the red dotted lines are asymptotes, which are not part of the actual function.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture} 
+
+%y=(x^2+4x-3)/(4x-1)
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.5cm,y=0.5cm,clip=false,
+xmin=-4,xmax=4,xtick={-2,2},
+ymin=-4,ymax=4,ytick={-2,2},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=-4:0.084,<->,>=latex,samples=204] {(x^2+4*x-3)/(4*x-1)};
+\addplot[domain=0.344:4,<->,>=latex,samples=183] {(x^2+4*x-3)/(4*x-1)};
+\addplot[domain=-4:4,Red,dashed,<->,>=latex,samples=2] {x/4+17/16};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(0.25,-4)(0.25,4)};
+\node[label={270:{\(y=\dfrac{x^2+4x-3}{4x+1}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=(3x^3-2x+4)/(x^3+4x^2-x-5)
+\begin{axis}[name=plot2,at={($(plot1.east)+(2.5em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.5cm,y=0.5cm,clip=false,
+xmin=-4,xmax=4,xtick={-2,2},
+ymin=-4,ymax=4,ytick={-2,2},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=-2.204:-1.208,<->,>=latex,samples=50] {(3*x^3-2*x+4)/(x^3+4*x^2-x-5)};
+\addplot[domain=-1.060:0.978,<->,>=latex,samples=102] {(3*x^3-2*x+4)/(x^3+4*x^2-x-5)};
+\addplot[domain=1.239:4,<->,>=latex,samples=138] {(3*x^3-2*x+4)/(x^3+4*x^2-x-5)};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(-3.931,-4)(-3.931,4)};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(-1.163,-4)(-1.163,4)};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(1.094,-4)(1.094,4)};
+\node[label={270:{\(y=\dfrac{3x^3-2x+4}{x^3+4x^2-x-5}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=(3x+2)/(2x^2+x-1)
+\begin{axis}[name=plot3,at={($(plot2.east)+(2.5em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.5cm,y=0.5cm,clip=false,
+xmin=-4,xmax=4,xtick={-2,2},
+ymin=-4,ymax=4,ytick={-2,2},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=-4:-1.102,<->,>=latex,samples=145] {(3*x+2)/(2*x^2+x-1)};
+\addplot[domain=-0.931:0.227,<->,>=latex,samples=58] {(3*x+2)/(2*x^2+x-1)};
+\addplot[domain=0.806:4,<->,>=latex,samples=160] {(3*x+2)/(2*x^2+x-1)};
+\addplot[Red,dashed,domain=-4:4,<->,>=latex,samples=2] {0};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(-1,-4)(-1,4)};
+\addplot[Red,dashed,<->,>=latex,samples=2] plot coordinates {(0.5,-4)(0.5,4)};
+\node[label={270:{\(y=\dfrac{3x+2}{2x^2+x-1}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\subsection{Algebraic Functions}
+
+Rational functions are a subset of the \textbf{algebraic functions}, functions that are expressible using \(x,\) \(y,\) and the standard arithmetic operations (addition, subtraction, multiplication, and division) in addition to exponentiation. Here are the graphs of two rational functions.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=(9-x^2)^(1/2)
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},
+ymin=-1,ymax=4,ytick={1,2,3},
+xlabel=\(x\),ylabel=\(y\),
+samples=300]
+\addplot[domain=-3:3] {(9-x^2)^(1/2)};
+\node[label={270:{\(y=\sqrt{9-x^2}\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+%y=1/2(x^4-4x+4)^(1/3)
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.8cm,y=0.8cm,clip=false,
+xmin=-3,xmax=3,xtick={-2,-1,1,2},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=300]
+\addplot[domain=-3:3,<->,>=latex] {1/2*(x^4-4*x+4)^(1/3)};
+\node[label={270:{\(y=\dfrac{1}{2}(x^4-4x+4)^{(1/3)}\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+The graph above on the left is a semicircle with radius \(3.\) \(y=\sqrt{r^2-x^2}\) is the equation of a semicircle with radius \(r.\) It can be derived by taking the principle root when solving for \(y\) in the standard equation of a circle: \(x^2+y^2=r^2.\) This will become important when we begin to cover the areas of regions.
+
+\subsection{Trigonometric Functions (Introduction)}
+
+There are six major \textbf{trigonometric functions}: \textbf{sine}, \textbf{cosine}, \textbf{tangent}, \textbf{cotangent}, \textbf{secant}, and \textbf{cosecant}. Here are the graphs of the sine and cosine functions.\\
+
+\noindent \figurelabel
+
+%Add graph from original document
+
+The six trigonometric functions can be represented as ratios of a right triangle's side lengths.  Let \(O\) equal the length of the side opposite \(\theta,\) let \(A\) equal the length of the side adjacent to \(\theta,\) and let \(H\) equal the length of the hypotenuse. We have the following relations.\\
+
+\noindent \figurelabel
+
+%Add graph from original document
+
+\begin{alignat*}{5}
+\sin\theta=\frac{O}{H}&\hspace{2em}&&\tan\theta=\frac{O}{A}&&\hspace{2em}\sec\theta=\frac{A}{H}\\
+\cos\theta=\frac{A}{H}&\hspace{2em}&&\cot\theta=\frac{A}{O}&&\hspace{2em}\csc\theta=\frac{O}{H}
+\end{alignat*}
+
+We will learn more about trigonometric functions in section \(1.7.\)
+
+\subsection{Exponential Functions (Introduction)}
+
+An \textbf{exponential function} is a function of the form \(f(x)=a^x,\) where \(a\) is some positive constant not equal to \(1\) (the function \(f(x)=1^x\) is the same as the constant function \(g(x)=1\)).
+
+There are certain properties that all exponential functions have. The domain of exponential functions is \(\mathbb{R}.\) Additionally, the \(y\)-coordinates of exponential functions can get arbitrarily close to \(0\) but not actually reach it. Reaching \(\infty\) is possible by taking sufficiently large \(x\) in either the positive or negative direction. This means the range of all exponential functions is \((0,\infty).\) Also, since \(a^0=1\Forall a,\) all exponential functions pass through the point \((0,1).\) In the graphs below, you will notice that \(a^x\) is the reflection of \(\left(\frac{1}{a}\right)^x\) over the \(y\)-axis.\\
+
+\noindent \textit{Note: The following graphs are not to scale.}\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=2^x, y=e^x, y=10^x
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1.6cm,y=0.4cm,clip=false,
+xmin=-1.5,xmax=1.5,xtick={-1,-0.5,0.5,1},
+ymin=-2,ymax=12,ytick={2,4,6,8,10},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[Blue,domain=-1.5:1.5,<->,>=latex,samples=150] {2^x};
+\addplot[Green,domain=-1.5:1.5,<->,>=latex,samples=150] {e^x};
+\addplot[Red,domain=-1.5:1.07918,<->,>=latex,samples=129] {10^x};
+\node[label={270:{\(\color{Blue}{y=2^x}\),\hspace{1em}\(\color{Green}{y=e^x}\),\hspace{1em}\(\color{Red}{y=10^x}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+%y=(1/2)^x, y=(1/e)^x, y=(1/10)^x
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1.6cm,y=0.4cm,clip=false,
+xmin=-1.5,xmax=1.5,xtick={-1,-0.5,0.5,1},
+ymin=-2,ymax=12,ytick={2,4,6,8,10},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[Blue,domain=-1.5:1.5,<->,>=latex,samples=150] {(1/2)^x};
+\addplot[Green,domain=-1.5:1.5,<->,>=latex,samples=150] {(1/e)^x};
+\addplot[Red,domain=-1.07918:1.5,<->,>=latex,samples=129] {(1/10)^x};
+\node[label={270:{\(\color{Blue}{y=\left(\frac{1}{2}\right)^x}\),\hspace{1em}\(\color{Green}{y=\left(\frac{1}{e}\right)^x}\),\hspace{1em}\(\color{Red}{y=\left(\frac{1}{10}\right)^x}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\noindent\makebox[\linewidth]{\rule{\textwidth}{0.5pt}}
+
+%Exercises
+
+\noindent{\color{Gray}{\makebox[\linewidth]{\rule{\textwidth}{2pt}}}}
+
+\section{Shifting and Scaling Functions}
+
+So far we have only dealt with functions of the form \(y=f(x).\) In this section, we will  observe what happens to the graph of the function \(y=af(bx)+c.\)
+
+\subsection{Function Operations}
+
+Like numbers, functions can also be added, subtracted, multiplied, and divided (as long as the denominator isn't \(0.\)) These operations can produce a new function out of the two (or more) predecessor functions. Let us establish correct notation.
+\begin{align*}
+f(x)+g(x)&=(f+g)(x)\\
+f(x)-g(x)&=(f-g)(x)\\
+f(x)g(x)&=(fg)(x)\\
+\frac{f(x)}{g(x)}&=\left(\frac{f}{g}\right)(x)
+\end{align*}
+
+The domains of these combined functions are the intersections of the domains of the functions that make them up. \(\mathfrak{D}(f+g)=\mathfrak{D}(f-g)=\mathfrak{D}(fg)=\mathfrak{D}(f)\cap\mathfrak{D}(g).\) We also have \(\mathfrak{D}\left(\frac{f}{g}\right)=\mathfrak{D}(f)\cap\mathfrak{D}(g)|g(x)\neq0.\)
+
+As a special case of the multiplication rule, functions can also be multiplied by constants. The function \(y=cf(x)\) has the same domain of \(f(x).\)\\
+
+\example If \(f(x)=\sqrt{x^2-1}\) and \(g(x)=\frac{1}{x+4},\) find the following functions and their respective domains.
+
+\begin{enumerate}[label=(\alph*)]
+\item \((f+g)(x)\)
+\item \((f-g)(x)\)
+\item \((g-f)(x)\)
+\item \((fg)(x)\)
+\item \(\left(\frac{f}{g}\right)(x)\)
+\item \(\left(\frac{g}{f}\right)(x)\)
+\end{enumerate}
+\solution\\
+
+We must first find the domains of \(f(x)\) and \(g(x).\) For the domain of \(f(x),\) we have \(x\in\mathfrak{D}(\sqrt{x^2-1}),\) so \(x^2-1\geq0.\) This simplifies to \(x^2\geq1,\) so \(x\in(-\infty,-1]\cup[1,\infty).\) For the domain of \(g(x),\) we have \(x\in\mathfrak{D}\left(\frac{1}{x+4}\right),\) so \(x+4\neq0.\) This simplifies to \(x\in(-\infty,-4)\cup(-4,\infty).\)
+\begin{enumerate}[label=(\alph*)]
+\item
+\(f(x)+g(x)=\sqrt{x^2-1}+\frac{1}{x+4}.\) The domain of this function is \(\mathfrak{D}(f)\cap\mathfrak{D}(g)=(-\infty,-4)\cup(-4,-1]\cup[1,\infty).\)
+\item \(f(x)-g(x)=\sqrt{x^2-1}-\frac{1}{x+4}.\) The domain of this function is \(\mathfrak{D}(f)\cap\mathfrak{D}(g)=(-\infty,-4)\cup(-4,-1]\cup[1,\infty).\)
+\item \(g(x)-f(x)=\frac{1}{x+4}-\sqrt{x^2-1}.\) The domain of this function is \(\mathfrak{D}(f)\cap\mathfrak{D}(g)=(-\infty,-4)\cup(-4,-1]\cup[1,\infty).\)
+\item \(f(x)g(x)=\frac{\sqrt{x^2-1}}{x+4}.\) The domain of this function is \(\mathfrak{D}(f)\cap\mathfrak{D}(g)=(-\infty,-4)\cup(-4,-1]\cup[1,\infty).\)
+\item \(\frac{f(x)}{g(x)}=(x+4)\sqrt{x^2-1}.\) The domain of this function is \(\mathfrak{D}(f)\cap\mathfrak{D}(g)|g(x)\neq0.\) We find that \(g(x)\) does not equal \(0\) for any value of \(x,\) so the domain of this function is \((-\infty,-4)\cup(-4,-1]\cup[1,\infty).\)
+\end{enumerate}
+
+\subsection{Composite Functions}
+
+Let \(f(x)\) and \(g(x)\) be arbitrary functions. We define the \textbf{composite function} to be \(f(g(x)),\) also written as \((f\circ g)(x).\) This new function takes a number \(x,\) returns \(g(x),\) then uses the value of \(g(x)\) as the input to \(f(x).\) See the below figure.
+
+%Figure from original
+
+The domain of \(f(g(x))\) consists of all of the numbers in the domain of \(g(x)\) such that the value of \(g(x)\) is in the domain of \(f(x).\) An important thing to know is that \(f(g(x))\) is not necessarily equal to \(g(f(x)).\)\\
+
+\example Let \(f(x)=\sqrt{x-3}\) and let \(g(x)=2x^2-5.\) Find the functions that represent each of the following and give their domains.
+
+\begin{enumerate}[label=(\alph*)]
+\item \((f\circ g)(x)\)
+\item \((g\circ f)(x)\)
+\item \((f\circ f)(x)\)
+\item \((g\circ g)(x)\)
+\end{enumerate}
+\solution\\
+
+\begin{enumerate}[label=(\alph*)]
+\item \((f\circ g)(x)=f(g(x))=f(2x^2-5)=\sqrt{(2x^2-5)-3}=\sqrt{2x^2-8}\)\\
+\(\mathfrak{D}=(-\infty,-2]\cup[2,\infty)\)
+\item \((g\circ f)(x)=g(f(x))=2(g(x))^2=2(\sqrt{x-3})^2-5=2(x-3)-5=2x-11\)\\
+\(\mathfrak{D}=[3,\infty)\)
+\item \((f\circ f)(x)=f(f(x))=f(\sqrt{x-3})=\sqrt{\sqrt{x-3}-3}\)\\
+\(\mathfrak{D}=[12,\infty)\)
+\item \((g\circ g)(x)=g(g(x))=g(2x^2-5)=2(2x^2-5)^2-5=2(4x^2-20x+25)-5=8x^2-40x+45\)\\
+\(\mathfrak{D}=(-\infty,\infty)\)
+\end{enumerate}
+
+Note that the domain of the function \(f(x)=2x-11\) is \((-\infty,\infty),\) but when it is formed by the composite function \(g\circ f\) in the previous example, the domain of \(f\) is \([3,\infty),\) so the domain is restricted.
+
+\subsection{Even and Odd Functions}
+
+Certain functions \(f(x)\) have \textbf{symmetry} properties that can be found by examining the composite function produced by taking \(f(-x).\) A function \(y=f(x)\) is referred to as an \textbf{even function} if \(f(-x)=f(x)\Forall x,\) and an \textbf{odd function} if \(f(-x)=-f(x)\Forall x.\) We will now examine the properties of even and odd functions.
+
+Because \(f(-x)=f(x),\) an even function is symmetric about the \(y\)-axis. This means that if you flip the function over the \(y\)-axis, then you will get the exact same function. Note that if the point \((a,b)\) is on the graph of an even function, then so is the point \((-a,b).\)
+
+Because \(f(-x)=-f(x),\) an odd function is symmetric about the origin. This means that if you rotate the function \(180^\circ\) around the point \((0,0),\) then you will get the exact same function. Note that if the point \((a,b)\) is on the graph of an odd function, then so is the point \((-a,-b).\) If \(x=0\) is in the domain of an odd function, then the function passes through the origin.\\
+
+\example Determine if the following functions are even, odd, or neither.
+
+\begin{enumerate}[label=(\alph*)]
+\item \(f(x)=x^3+4x\)
+\item \(f(x)=3x^4\cos x+5x^3\)
+\item \(f(x)=\frac{-2x^3\sin x}{x^2+1}\)
+\item \(f(x)=0\)
+\end{enumerate}
+\solution
+
+\begin{enumerate}[label=(\alph*)]
+\item \(f(-x)=(-x)^3+4(-x)=-x^3-4x=-f(x)\Rightarrow\) Odd
+\item \(f(-x)=3(-x)^4\cos(-x)+5(-x)^3=3x^4\cos x-5x^3\Rightarrow\) Neither
+\item \(f(-x)=\frac{-2(-x)^3\sin(-x)}{(-x)^2+1}=\frac{2x^3\times-\sin x}{x^2+1}=\frac{-2x^3\sin x}{x^2+1}=f(x)\Rightarrow\) Even
+\item \(f(-x)=0=\pm f(x)\Rightarrow\) Both odd and even
+\end{enumerate}
+
+\section{Shifting and Scaling Functions}
+
+We have already seen that we can add and multiply functions together to produce new functions, as well as combine functions together to produce composite. In this section, we will examine how this affects the properties of a function.
+
+\subsection{Shifting Functions}
+
+We can shift a function \(f(x)\) up or down by adding a nonzero constant. We can write the shift as \(f(x)+k.\) If \(k>0,\) then the new function lies above the old one; we are shifting the function up. If \(k<0,\) then the new function lies below the old one; we are shifting the function down. In both cases, we shift the function \(|k|\) units.
+
+Similarly, we can also shift functions left or right by using a composite function. We can write the shift as \(f(x+k).\) If \(k>0,\) then the new function lies to the left of the old one. If \(k<0,\) then the new function lies to the right of the old one. In both cases, we shift the function \(|k|\) units.
+
+These graphs show several shifts of the graph of \(y=x^2.\)\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=x^2, y=x^2+3, y=x^2-1
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.5cm,y=0.5cm,clip=false,
+xmin=-3,xmax=3,xtick={-2,2},
+ymin=-2,ymax=6,ytick={2,4},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[Blue,domain=-2.449:2.449,<->,>=latex,samples=245] {x^2};
+\addplot[Green,domain=-1.732:1.732,<->,>=latex,samples=173] {x^2+3};
+\addplot[Red,domain=-2.646:2.646,<->,>=latex,samples=265] {x^2-1};
+\node[label={270:{\(\color{Blue}{y=x^2}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\node[label={270:{\(\color{Green}{y=x^2+3}\)}},inner sep=4pt] at (axis cs:0,-3) {};
+\node[label={270:{\(\color{Red}{y=x^2-1}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+%y=x^2, y=(x-3)^2, y=(x+2)^2
+\begin{axis}[name=plot2,at={($(plot1.east)+(6em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=0.5cm,y=0.5cm,clip=false,
+xmin=-4,xmax=6,xtick={-2,2,4},
+ymin=-2,ymax=6,ytick={2,4},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[Blue,domain=-2.449:2.449,<->,>=latex,samples=245] {x^2};
+\addplot[Green,domain=-4:0.449,<->,>=latex,samples=222] {x^2+4*x+4};
+\addplot[Red,domain=0.551:5.449,<->,>=latex,samples=245] {x^2-6*x+9};
+\node[label={270:{\(\color{Blue}{y=x^2}\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\node[label={270:{\(\color{Green}{y=(x+2)^2}\)}},inner sep=4pt] at (axis cs:0,-3) {};
+\node[label={270:{\(\color{Red}{y=(x-3)^2}\)}},inner sep=4pt] at (axis cs:0,-4) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\subsection{Scaling Functions}
+
+In addition to shifting functions, we are also able to stretch or compress them horizontally and vertically. We can stretch a function vertically by multiplying the function by a positive constant. The function \(y=kf(x)\) is the function \(y=f(x)\) stretched vertically by a factor of \(k.\) By convention, if \(k<1,\) then we write \(y=\frac{1}{k}f(x)\) and say we are compressing \(f(x)\) by a factor of \(k.\) We can multiply the function by \(-1\) to reflect the function over the \(x\)-axis.
+
+We can stretch or compress a function horizontally by combining a function \(y=f(x)\) and a linear function passing through the origin (\(y=kx\)). The function \(y=f(kx)\) is the function \(y=f(x)\) compressed horizontally by a factor of \(k.\) By convention, if \(K<1,\) then we write \(y=f\left(\frac{x}{k}\right)\) and say we are stretching \(f(x)\) by a factor of \(k.\) We can multiply the function by \(-1\) to reflect the function over the \(y\)-axis.
+
+These graphs show the scaling of the graph of \(y=\sqrt{x}.\)\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=sqrt(x), y=sqrt(2x), y=sqrt(x/2)
+\begin{axis}[name=plot1,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-1,xmax=4,xtick={1,2,3},
+ymin=-1,ymax=4,ytick={1,2,3},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=0:4,->,>=latex,samples=200] {sqrt(x)};
+\addplot[Blue,domain=0:4,->,>=latex,samples=200] {1/2*sqrt(x)};
+\addplot[Green,domain=0:4,->,>=latex,samples=200] {2*sqrt(x)};
+\node[label={270:{\(y=\sqrt{x}\)\hspace{1em}\(\color{Blue}{y=\frac{1}{2}\sqrt{x}}\)\hspace{1em}\(\color{Green}{y=2\sqrt{x}}\)}},inner sep=4pt] at (axis cs:1.5,-1) {};
+\end{axis}
+
+%y=x^2, y=(x-3)^2, y=(x+2)^2
+\begin{axis}[name=plot2,at={($(plot1.east)+(4em,0)$)},anchor=west,
+grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-1,xmax=4,xtick={1,2,3},
+ymin=-1,ymax=4,ytick={1,2,3},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=0:4,->,>=latex,samples=200] {sqrt(x)};
+\addplot[Blue,domain=0:4,->,>=latex,samples=200] {sqrt(x/2)};
+\addplot[Green,domain=0:4,->,>=latex,samples=200] {sqrt(2*x)};
+\node[label={270:{\(y=\sqrt{x}\)\hspace{1em}\(\color{Blue}{y=\sqrt{\frac{x}{2}}}\)\hspace{1em}\(\color{Green}{y=\sqrt{2x}}\)}},inner sep=4pt] at (axis cs:1.5,-1) {};
+\end{axis}
+
+%third graph on page 17
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=sqrt(x), y=sqrt(2x), y=sqrt(x/2)
+\begin{axis}[grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-4,xmax=4,xtick={-3,-2,-1,1,2,3},
+ymin=-3,ymax=3,ytick={-2,-1,1,2},
+xlabel=\(x\),ylabel=\(y\)]
+\addplot[domain=0:4,->,>=latex,samples=200] {sqrt(x)};
+\addplot[Blue,domain=0:4,->,>=latex,samples=200] {-1*sqrt(x)};
+\addplot[Green,domain=-4:0,<-,>=latex,samples=200] {sqrt(-1*x)};
+\addplot[Red,domain=-4:0,<-,>=latex,samples=200] {-1*sqrt(-1*x)};
+\node[label={270:{\(y=\sqrt{x}\)\hspace{1em}\(\color{Blue}{y=-\sqrt{x}}\)\hspace{1em}\(\color{Green}{y=\sqrt{-x}}\)\hspace{1em}\(\color{Red}{y=-\sqrt{-x}}\)}},inner sep=4pt] at (axis cs:0,-3) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\example Let \(f(x)=4x^2-9x+3.\) Find the new formula for \(f(x)\) if you perform the following movements.
+\begin{enumerate}[label=(\alph*)]
+\item Reflect \(f(x)\) about the \(x\)-axis, then stretch horizontally by a factor of \(3\).
+\item Shift \(f(x)\) by \(2\) to the left and \(6\) down.
+\item Reflect \(f(x)\) about the \(y\)-axis, then \(1\) up.
+\end{enumerate}
+\solution
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\(
+\begin{aligned}[t]
+-f\left(\frac{x}{3}\right)&=-\left(4\left(\frac{x}{3}\right)^2-9\left(\frac{x}{3}\right)+3\right)\\
+&=-\left(\frac{4}{9}x^2-3x+3\right)\\
+&=-\frac{4}{9}x^2+3x-3
+\end{aligned}
+\)
+\item
+\(
+\begin{aligned}[t]
+f(x+2)-5&=(4(x+2)^2-9(x+2)+3)-6\\
+&=(4(x^2+4x+4)-(9x+18)+3)-6\\
+&=(4x^2+7x+1)-6\\
+&=4x^2+7x-5
+\end{aligned}
+\)
+\item
+\(
+\begin{aligned}[t]
+f(-x)+1&=(4(-x)^2-9(-x)+3)+1\\
+&=(4x^2+9x+3)+1\\
+&=4x^2+9x+4
+\end{aligned}
+\)
+\end{enumerate}
+
+%Exercises
+
+\section{Piecewise Functions}
+
+We are not able to express all functions using one simple \(y=f(x)\) formula. Suppose we were modeling the altitude of a plane before and after takeoff. Before takeoff, the plane would be at a constant altitude of \(0.\) After takeoff, we can say the the plane behaves according to some function. For simplicity, let's say the plane rises at a rate of \(1600\) feet per minute until reaching \(32,000\) feet, at which point it stops rising and remains at constant altitude. There's no function that can represent that graph; this is where piecewise functions come in. A \textbf{piecewise function} is a function that assigns a different operation to a given value of \(x\) in its domain, depending on which range that value of \(x\) falls in.
+
+\subsection{Notation}
+
+Consider a function that increases a number \(x\) by \(3\) if \(x\) is negative and multiplies \(x\) by \(2\) if \(x\) is non-negative. This is a combination of two linear functions and cannot be expressed in terms of one single linear function. We can express this piecewise function like this:
+
+\[
+f(x)=
+\begin{cases}
+x+2 & \text{if }x<0\\
+3x & \text{if }x\geq0
+\end{cases}
+\]
+
+\subsection{Common Piecewise Functions}
+
+One of the simplest piecewise functions is the \textbf{signum} function (which is also denoted \(\sgn(x)\)). This function tells if the inputted number is positive, negative, or neither. If the input is positive, the signum function returns a value of \(1.\) If the input is negative, the function returns an input of \(-1.\) By convention, \(\sgn(0)=0.\) We can write this in piecewise notation like this.
+
+\[
+\sgn(x)=
+\begin{cases}
+1 & \text{if }x>0\\
+0 & \text{if }x=0\\
+-1 & \text{if }x<0
+\end{cases}
+\]
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=sgn(x)
+\begin{axis}[grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-3,xmax=3,xtick={-2,-1,1,2},
+ymin=-2,ymax=2,ytick={-1,1},
+xlabel=\(x\),ylabel=\(y\),
+samples=2]
+\addplot[domain=-3:0,<-,>=latex] {-1};
+\addplot[domain=0:3,->,>=latex] {1};
+\addplot[soldot] coordinates{(0,0)};
+\addplot[holdot] coordinates{(0,-1)(0,1)};
+\node[label={270:{\(y=\sgn(x)\)}},inner sep=4pt] at (axis cs:0,-2) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+You are likely familiar with the \textbf{absolute value function}, which measures the distance between a point on the number line and zero. You have likely used the notation \(f(x)=|x|.\) Remember that when \(x\) is positive, then \(|x|=x,\) and that when \(x\) is negative, \(|x|=-x.\) Lastly, \(|0|=0.\) We can now use any of the following notations (though the middle notation is preferred).
+\[
+f(x)=
+\begin{cases}
+x & \text{if }x>0\\
+0 & \text{if }x=0\\
+-x & \text{if }x<0
+\end{cases}
+\hspace{2em}
+=
+\begin{cases}
+x & \text{if }x\geq0\\
+-x & \text{if }x<0
+\end{cases}
+\hspace{2em}
+=
+\begin{cases}
+x & \text{if }x>0\\
+-x & \text{if }x\leq0
+\end{cases}
+\]
+
+It should be noted that \(|x|=x\sgn(x).\)\\
+
+\noindent \figurelabel
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+%y=sgn(x)
+\begin{axis}[grid=both,
+axis lines=middle,
+ticklabel style={fill=white,font=\scriptsize},
+x=1cm,y=1cm,clip=false,
+xmin=-3,xmax=3,xtick={-2,-1,1,2},
+ymin=-1,ymax=3,ytick={1,2},
+xlabel=\(x\),ylabel=\(y\),
+samples=2]
+\addplot[domain=-3:0,<-,>=latex] {-1*x};
+\addplot[domain=0:3,->,>=latex] {x};
+\node[label={270:{\(y=|x|\)}},inner sep=4pt] at (axis cs:0,-1) {};
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+An important function in physics is known as the \textbf{Heaviside function}, \(H(t)\). This function describes the state of an electric circuit once the circuit is closed at \(t=0.\) Before \(t=0,\) the Heaviside function returns a value of \(0\) (meaning the circuit is open), and after \(t=0,\) the Heaviside function returns a value of \(1.\) By convention, \(H(0)\) is taken to be equal to \(\frac{1}{2}\).\\
+
+\example Write a piecewise function to represent the Heaviside function, and express the Heaviside function in terms of the signum function.\\
+
+\solution 
+
+\noindent From the above definition, we can write the following.
+\[
+H(x)=
+\begin{cases}
+1 & \text{if }x>0\\
+\frac{1}{2} & \text{if }x=0\\
+0 & \text{if }x<0
+\end{cases}
+\]
+We see that \(H(x)=\frac{\sgn(x)+1}{2}.\)\\
+
+\section{Trigonometric Functions}
+
+\subsection{Angles}
+
+An \textbf{angle} is created when two rays share a common endpoint; the angle is a measure of the space between the rays. Angles are usually measured in degrees or radians. For this course, all angles are assumed to be in radians unless otherwise specified.
+
+The \textbf{radian} is defined as the ratio of the length of an arc of a circle to the radius of the circle and is used to describe how wide an angle is.
+
+%diagram
+
+In the above diagram, we say that \(\frac{s}{r}=\theta\) radians.
+
+The \textbf{unit circle} is the circle with radius \(1\) centered at the origin. Since \(r=1,\) the length of the arc produced when the rays of an angle centered at the origin intersect the unit circle is equal to the angle's measure in radians. We know that in a full rotation of a circle, there are \(360^\circ.\) The circumference of a circle with radius \(r\) is \(2\pi r,\) so the circumference of the unit circle is \(2\pi.\) This means \(360^\circ=2\pi\) radians, or \(180^\circ=\pi\) radians.
+
+We can now make the following conversions.
+\[1\text{ radian}=\frac{180}{\pi}^\circ\approx57.30^\circ\hspace{3em}1^\circ=\frac{\pi}{180}\approx0.0175\text{ radians}\]
+
+\noindent \textit{Note: Typically, when an angle is expressed in radians, there is no unit; the unit of ``radians" is implied.}
+
+The following angle measure conversions are extremely important to know. It is recommended that the student memorize these conversions and not have to derive the radian measure from the degree measure when solving a problem.\\
+
+\noindent \tablelabel
+
+\begin{center}
+\renewcommand*{\arraystretch}{1.3}
+\begin{tabular}{|>{\xstrut}l|c|c|c|c|c|c|c|c|c}
+\hline
+Degrees & \(0\) & \(30\) & \(45\) & \(60\) & \(90\) & \(120\) & \(135\) & \(150\) & \multicolumn{1}{c|}{\(180\)} \\ \hline
+Radians & \(0\)  & \(\frac{\pi}{6}\) & \(\frac{\pi}{4}\) & \(\frac{\pi}{3}\) & \(\frac{\pi}{2}\) & \(\frac{2\pi}{3}\) & \(\frac{3\pi}{4}\) & \(\frac{5\pi}{6}\) & \multicolumn{1}{c|}{\(\pi\)} \\ \hline\hline
+Degrees & \(210\) & \(225\) & \(240\) & \(270\) & \(300\) & \(315\) & \(330\) & \(360\) & \\ \cline{1-9}
+Radians & \(\frac{7\pi}{6}\) & \(\frac{5\pi}{4}\) & \(\frac{4\pi}{3}\) & \(\frac{3\pi}{2}\) & \(\frac{5\pi}{3}\) & \(\frac{7\pi}{4}\) & \(\frac{11\pi}{6}\) & \(2\pi\) & \\ \cline{1-9}
+\end{tabular}
+\end{center}
+
+An angle is said to be in \textbf{standard position} if one of the rays that makes it up is the positive \(x\)-axis (this ray is called the \textbf{initial ray}; the other ray that determines the angle is called the \textbf{terminal ray}). In this course, we will always assume that an angle is in standard position unless otherwise specified.
+
+The measure of an angle does not necessarily have to be between \(0\) and \(2\pi.\) We can rotate an angle as many times as much as we want, as long as the terminal ray is still in the same place. If two angles have different measures but have common terminal rays, then the angles are said to be \textbf{coterminal}. The below graph shows that \(\frac{5\pi}{3},\) \(-\frac{\pi}{3},\) and \(\frac{17\pi}{3}\) are all coterminal.\\
+
+\noindent \figurelabel
+
+%Graph
+
+\subsection{The Six Basic Functions}
+
+Many students may have learned the basic definitions of the trigonometric functions as the ratios of sides on a right triangle. However, this text will demonstrate the trigonometric functions with the \textbf{unit circle}, a circle with radius \(1\) centered at the origin.\\
+
+\noindent \figurelabel
+
+%Graph
+
+We have the following relations with the figure above.
+\begin{alignat*}{3}
+\textbf{Sine: }\sin\theta=\frac{y}{r}\hspace{3em}\textbf{Cosine: }&\cos\theta=\frac{x}{r}\hspace{3em}\textbf{Tangent: }&&\tan\theta=\frac{y}{x}\\
+\textbf{Cosecant: }\csc\theta=\frac{r}{y}\hspace{3em}\textbf{Secant: }&\sec\theta=\frac{r}{x}\hspace{3em}\textbf{Cotangent: }&&\cot\theta=\frac{x}{y}
+\end{alignat*}
+
+From these, we also have the following.
+
+\begin{align*}
+\tan\theta=\frac{\sin\theta}{\cos\theta}\hspace{3em}&\cot\theta=\frac{\cos\theta}{\sin\theta}=\frac{1}{\tan\theta}\\
+\sec\theta=\frac{1}{\cos\theta}\hspace{3em}&\csc\theta=\frac{1}{\sin\theta}
+\end{align*}
+
+These definitions, unlike the ones based on right triangles, work when the angle isn't acute.
+
+\subsection{ASTC}
+
+Let's take a moment to think about the geometric definitions of sine and cosine. As we saw in Figure \(1.19,\) the point where the terminal ray of an angle intersects the unit circle is the point \((\cos\theta,\sin\theta).\) Since \(f(-x)\) is the reflection of \(f(x)\) over the \(y\)-axis, we see that \(\sin(-x)=-\sin x\) and \(\cos(-x)=\cos x.\) From these, we can derive the following.
+\begin{align*}
+\tan(-\theta)=-\tan\theta\hspace{3em}&\cot(-\theta)=-\cot\theta\\
+\cot(-\theta)=-\cot\theta\hspace{3em}&\csc(-\theta)=-\csc\theta
+\end{align*}
+This shows that cosine and secant are even functions, while sine, cosecant, tangent, and cotangent are odd functions.
+
+From this, we can make the following diagram to know what functions are positive in what quadrant.\\
+
+\noindent \figurelabel
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+
+\begin{axis}[axis lines=middle,
+ticklabel style={none},
+x=4cm,y=4cm,clip=false,
+xmin=-1,xmax=1,xtick=\empty,
+ymin=-1,ymax=1,ytick=\empty,
+xlabel=\(x\),ylabel=\(y\)]
+
+\node[label={0:{\Huge A}},inner sep=0pt] at (axis cs:0.4,0.5) {};
+\node[label={180:{\Huge S}},inner sep=0pt] at (axis cs:-0.4,0.5) {};
+\node[label={180:{\Huge T}},inner sep=0pt] at (axis cs:-0.4,-0.5) {};
+\node[label={0:{\Huge C}},inner sep=0pt] at (axis cs:0.4,-0.5) {};
+
+\end{axis}
+
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+The A stands for ``All" because all six trigonometric functions are positive in the first quadrant. S stands for ``sine," because sine (and cosecant) are positive in the second quadrant. T stands for ``tangent," since tangent and cotangent are positive in the third quadrant. Lastly, C stands for ``cosine," since it and secant are positive in the fourth quadrant.
+
+This is commonly known as the ``CAST rule," but this text prefers to refer to it as the \textbf{ASTC chart}, because of two reasons. First, ASTC is in an order that also helps the student remember the order of the quadrants, while CAST starts in the fourth quadrant. Second, ASTC can be remembered with the acronym ``All Scholars Take Calculus."
+
+\subsection{Special Triangles}
+
+In this section, we will only look at non-right angles that can exist in a right triangle; these angles are acute.
+
+Here are two triangles that are extremely important to trigonometry: the \(45-45-90\) triangle and the \(30-60-90\) triangle.
+
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+\coordinate (A) at (0,0);
+\coordinate (B) at (4,4);
+\coordinate (C) at (4,0);
+\draw (A) -- node[above left] {\(\sqrt{2}\)} (B) -- node[right] {\(1\)} (C) -- node[below] {\(1\)} (A);
+\path pic[draw,angle radius=7.5mm,"\(45^\circ\)",angle eccentricity=1.6] {angle = C--A--B};
+\path pic[draw,angle radius=7.5mm,"\(45^\circ\)",angle eccentricity=1.6] {angle = A--B--C};
+\draw ($(C)!3mm!(B)$) -| ($(C)!3mm!(A)$);
+\end{tikzpicture}
+\hspace{6em}
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+\coordinate (A) at (0,0);
+\coordinate (B) at (4,2.309);
+\coordinate (C) at (4,0);
+\draw (A) -- node[above left] {\(2\)} (B) -- node[right] {\(1\)} (C) -- node[below] {\(\sqrt{3}\)} (A);
+\path pic[draw,angle radius=9mm,"\(30^\circ\)",angle eccentricity=1.6] {angle = C--A--B};
+\path pic[draw,angle radius=6mm,"\(60^\circ\)",angle eccentricity=1.6] {angle = A--B--C};
+\draw ($(C)!3mm!(B)$) -| ($(C)!3mm!(A)$);
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+Let's take a look at the values of the trigonometric functions in terms of the angles in the bottom left. Label these angles as \(\theta,\) and label each side of the triangle as ``opposite," ``adjacent," or ``hypotenuse."
+\begin{center}
+%\begin{comment}
+\begin{tikzpicture}
+\coordinate (A) at (0,0);
+\coordinate (B) at (4,3);
+\coordinate (C) at (4,0);
+\draw (A) -- node[above,sloped] {Hypotenuse} (B) -- node[below,sloped,rotate=180] {Opposite} (C) -- node[below] {Adjacent} (A);
+\path pic[draw,angle radius=7.5mm,"\(\theta\)",angle eccentricity=1.6] {angle = C--A--B};
+\draw ($(C)!3mm!(B)$) -| ($(C)!3mm!(A)$);
+\end{tikzpicture}
+%\end{comment}
+\end{center}
+
+\example Using the above triangles, fill in the following table.
+
+\begin{center}
+\renewcommand*{\arraystretch}{1.3}
+\begin{tabular}{|c|>{\xstrut}c|c|c|}
+\hline
+\(\theta\) (Deg.) & \(30^\circ\) & \(45^\circ\) & \(60^\circ\) \\ \hline
+\(\theta\) (Rad.) & \(\frac{\pi}{6}\) & \(\frac{\pi}{4}\) & \(\frac{\pi}{3}\) \\ \hline
+\(\sin\theta\) & & & \\ \hline
+\(\cos\theta\) & & & \\ \hline
+\(\tan\theta\) & & & \\ \hline
+\end{tabular}
+\end{center}
+\solution\\
+
+\begin{center}
+\renewcommand*{\arraystretch}{1.3}
+\begin{tabular}{|c|>{\xstrut}c|c|c|}
+\hline
+\(\theta\) (Deg.) & \(30^\circ\) & \(45^\circ\) & \(60^\circ\) \\ \hline
+\(\theta\) (Rad.) & \(\frac{\pi}{6}\) & \(\frac{\pi}{4}\) & \(\frac{\pi}{3}\) \\ \hline
+\(\sin\theta\) & \(\frac{1}{2}\) & \(\frac{\sqrt{2}}{2}\) & \(\frac{1}{2}\) \\ \hline
+\(\cos\theta\) & \(\frac{\sqrt{3}}{2}\) & \(\frac{\sqrt{2}}{2}\) & \(\frac{1}{2}\) \\ \hline
+\(\tan\theta\) & \(\frac{\sqrt{3}}{3}\) & \(1\) & \(\sqrt{3}\) \\ \hline
+\end{tabular}
+\end{center}
+
+From this chart, we can construct a comprehensive unit circle.\\
+
+\noindent \figurelabel
+
+\begin{center}
+%%\begin{comment}
+\begin{tikzpicture}[scale=5,cap=round,>=latex]
+\draw[->] (-1.5cm,0cm) -- (1.5cm,0cm) node[right,fill=white] {\(x\)};
+\draw[->] (0cm,-1.5cm) -- (0cm,1.5cm) node[above,fill=white] {\(y\)};
+
+\draw[thick] (0cm,0cm) circle(1cm);
+
+\foreach \x in {0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330} {
+\draw[black] (0cm,0cm)--(\x:1cm);
+\filldraw[black](\x:1cm) circle(0.4pt);
+\draw(\x:0.6cm) node[fill=white] {\(\x^\circ\)};
+}
+
+\foreach \x/\xtext in {
+0/0,
+30/\frac{\pi}{6},
+45/\frac{\pi}{4},
+60/\frac{\pi}{3},
+90/\frac{\pi}{2},
+120/\frac{2\pi}{3},
+135/\frac{3\pi}{4},
+150/\frac{5\pi}{6},
+180/\pi,
+210/\frac{7\pi}{6},
+225/\frac{5\pi}{4},
+240/\frac{4\pi}{3},
+270/\frac{3\pi}{2},
+300/\frac{5\pi}{3},
+315/\frac{7\pi}{4},
+330/\frac{11\pi}{6}
+}
+\draw (\x:0.85cm) node[fill=white] {\(\xtext\)};
+
+\foreach \x/\xtext/\y in {
+30/\frac{\sqrt{3}}{2}/\frac{1}{2},
+45/\frac{\sqrt{2}}{2}/\frac{\sqrt{2}}{2},
+60/\frac{1}{2}/\frac{\sqrt{3}}{2},
+120/-\frac{1}{2}/\frac{\sqrt{3}}{2},
+135/-\frac{\sqrt{2}}{2}/\frac{\sqrt{2}}{2},
+150/-\frac{\sqrt{3}}{2}/\frac{\sqrt{1}}{2},
+210/-\frac{\sqrt{3}}{2}/-\frac{1}{2},
+225/-\frac{\sqrt{2}}{2}/-\frac{\sqrt{2}}{2},
+240/-\frac{1}{2}/-\frac{\sqrt{3}}{2},
+300/\frac{1}{2}/-\frac{\sqrt{3}}{2},
+315/\frac{\sqrt{2}}{2}/-\frac{\sqrt{2}}{2},
+330/\frac{\sqrt{3}}{2}/-\frac{1}{2}}
+\draw(\x:1.3cm) node[fill=white] {\(\left(\xtext,\y\right)\)};
+
+\draw(-1.15cm,0cm) node[above=1pt] {\((-1,0)\)};
+\draw(1.15cm,0cm)  node[above=1pt] {\((1,0)\)};
+\draw(0cm,-1.15cm) node[fill=white] {\((0,-1)\)};
+\draw(0cm,1.15cm)  node[fill=white] {\((0,1)\)};
+\end{tikzpicture}
+%%\end{comment}
+\end{center}
+
+It is extremely important to comprehensively understand the steps in creating this unit circle. It is highly recommended to print out a blank copy of the unit circle and practice filling in the values shown above.
+
+%BEFORE YOU GO ANY FURTHER FILL IN THE DIAGRAMS YOU LAZY POTATOHEAD 807, 813, 920, 1072, 1267, 1299, 1307, 1335, 1345
+
+%Structure of the rest of the lesson
+  %Shifting and scaling functions 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~ DONE
+  %Piecewise functions 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DONE
+     %Absolute value and signum (abs(x)=x*sgn(x)) and Heaviside DONE
+  %Trig functions 4
+  %Exponential functions 5
+  %Inverse functions (general) 6
+  %Logarithms and arctrig 7
+
+
+
+
+
+
+
+
+%Piecewise functions, using Absolute value and signum (abs(x)=x*sgn(x))
+%New section on inverse functions, including a subsection on logarithms
+%New section on combining functions, then even and odd
+%subsection on shifting and scaling functions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
